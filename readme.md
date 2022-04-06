@@ -3,6 +3,9 @@ Let's make a website layer for OBS that shows dynamic troll chests!
 - A simple web server we can use to listen for those requests (example): https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTP-server/
 - The missing piece: dynamically updating the page elements when a certain request/payload is made.
 
+<img src="https://pbs.twimg.com/media/FO_T7O5XwAM6oFV?format=png&name=small" />
+But, better... and automated!
+
 ```
 // Can do with AJAX or HTTP server or Websockets...
 Basic Requests:
