@@ -1,0 +1,8 @@
+name: muk
+recipe: lamp
+config:
+  webroot: .
+services:
+  myservice:
+    type: node:16
+    command: npm start
