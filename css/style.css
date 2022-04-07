@@ -1,0 +1,72 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+
+  font-size: 18px;
+  line-height: 1;
+
+  overflow: hidden;
+  position: relative;
+}
+
+html {
+  background-image: url("../images/gw2-screenshot.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 100%;
+}
+
+body {
+  background-color: rgba(255,255,255,0.5);
+}
+
+#controls {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+}
+
+button {
+  cursor: pointer;
+}
+
+input[type=number] {
+  width: 3em;
+}
+
+#container {
+  display: flex;
+
+  flex-wrap: wrap;
+  align-items: flex-end;
+  align-content: flex-end;
+  justify-content: flex-end;
+  gap: 1em;
+
+  width: 100%;
+  min-height: 100%;
+  margin: 0 auto;
+  position: relative;
+
+  right: 1em;
+  bottom: 1em;
+}
+
+.chest {
+  min-width: 10em;
+  min-height: 10em;
+  background-color: #333;
+  border-radius: 25%;
+  cursor: pointer;
+}
+
+.chest:hover {
+  background-color: #222;
+}
+
+.chest:before {
+  color: #fff;
+  display: inline-block;
+  padding: 0.25em;
+}
