@@ -6,9 +6,19 @@ const { Server } = require('ws');
 const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 
+// 1 request/second
+const RateLimit = require('express-rate-limit');
+const limiter = new RateLimit({
+  windowMs: 1000,
+  max: 1
+});
+
 const server = express()
+  .use(limiter)
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+// server.use(limiter);
 
 const wss = new Server({ server });
 
