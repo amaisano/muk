@@ -1,109 +1,33 @@
+# Websocket Troll Chests
+
 Let's make a website layer for OBS that shows dynamic troll chests!
-- Streamdeck plugin for sending web requests: https://apps.elgato.com/plugins/gg.datagram.web-requests
-- A simple web server we can use to listen for those requests (example): https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTP-server/
-- The missing piece: dynamically updating the page elements when a certain request/payload is made.
 
+- Streamdeck plugin for sending web requests
+  - https://apps.elgato.com/plugins/gg.datagram.web-requests
+- A simple web server we can use to listen for those requests
+  - https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTP-server/
+- An external/cloud service for the websocket (to avoid local shenanigans)
+  - https://devcenter.heroku.com/articles/node-websockets#option-1-websocket
+
+## Chaos
 <img src="https://pbs.twimg.com/media/FO_T7O5XwAM6oFV?format=png&name=small" />
-But, better... and automated!
 
-```
-// Can do with AJAX or HTTP server or Websockets...
-Basic Requests:
-- localhost:3000/index.html?addChest
-- localhost:3000/index.html?removeChest
-- localhost:3000/index.html?removeAll
+- But, better... and automated!
 
--- Can add something like ?chestType=type1 to change it up.
+## Running Locally
 
-// Use jQuery to manipulate DOM
-- NOTE: I DON"T REMEMBER HOW JQUERY WORKS AAAAHHH
+Developed on Mac + Lando for Heroku. Lando uses Docker for a containerized set of services. No need to install node.js or npm on your machine (unless you want to of course).
 
-// Need to store this in a state machine of some kind. Cookies?
-var chestCount = 0;
-var normalChest = new $("div.chest.normal");
-var container = $("#container");
+1. Clone to repo.
+2. Install Lando (see https://github.com/lando/lando/releases). This includes Docker Desktop.
+3. In terminal, change directory to this repo root folder.
+4. Run `lando start` (this should do everything you need).
+5. Visit the URL listed in the command output.
 
-// Adds a new chest to the stack
-function addChest() {
-    chestCount = chestCount++;
-    container.append(normalChest);
-}
+## Current Features
 
-// Removes the last placed chest
-function removeChest() {
-    if (chestCount > 0) {
-        chestCount = chestCount--;
-        container.remove(container.children.last());
-    }
-}
-
-// Empties the container
-function removeAll() {
-    container.innerHTML("");
-}
-
-// Bonus: clicking on this layer in OBS can "open" or clear the chests clicked on
-
-$(#container > .chest").each().addEventListener("click", clickCallback());
-
-function clickCallback($element) {
-    container.find($element).remove();
-    chestCount = chestCount--;
-}
-
---------
-
-Horizontal Stacking
-- chests are added to right side, pushing existing chests to left (right aligned)
-
-Intial:               [1] ||EDGE
-Add chest:         [1][2] ||EDGE
-Add another:    [1][2][3] ||EDGE
-
----------
-
-Vertical Stacking
-- when a row reaches maximum capacity, slide it up, and add next row below
-- should keep things above the map, chat and skill bars
-- cap at 3 or 4 rows tall? might want to avoid interface along top of screen
-- numbered chests below added in order:
-
-Second row:         [1][2][3][4][5][6] ||EDGE
-First row:                   [7][8][9] ||EDGE
-
----------
-
-Layout summary: align bottom-right, essentially
-
- -----------------
-|                 |
-|                 |
-|             ↓ → |
- -----------------
-
----------
-
-CSS
-- use flexbox
-- not sure what body/html elements need to be, but we want 100% page fill
-
-#container {
-    display: flex;
-
-    flex-wrap: wrap;
-    align-items: flex-end;
-    align-content: flex-end;
-    justify-content: flex-end;
-
-    width: 100%;
-    min-height: 100%;
-    margin: 0px auto;
-    background-color: #BDBDBD;
-}
-
-.chest {
-    min-width: 10em;
-    min-height: 10em;
-    margin: 0.4em;
-}
-```
+- Websocket connection proof-of-concept (server time is pushed to webpage via websocket)
+- Add/remove chests one by one
+- Clear all chests
+- Click on individual chests to remove them
+- Show a count of total chests on the screen
