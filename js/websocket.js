@@ -1,4 +1,4 @@
-if (window.location.hostname.indexOf("lndo") > 0) {
+if (window.location.hostname.indexOf("lndo") > -1) {
   var HOST = 'ws://muk_ws.lndo.site';
 }
 else {
