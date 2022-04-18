@@ -1,2 +1,13 @@
-name: muk_chests
-recipe: mean
+name: mukchests
+services:
+  app:
+    type: nginx
+  ws:
+    type: node:16
+    command: npm install && npm start
+    scanner: false
+proxy:
+  app:
+    - mukchests.lndo.site
+  ws:
+    - muk_ws.lndo.site:3000

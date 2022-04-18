@@ -1,0 +1,30 @@
+{
+  "name": "muk_chests",
+  "version": "1.0.0",
+  "description": "websocket system for troll chests",
+  "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
+  "dependencies": {
+    "bufferutil": "^4.0.6",
+    "express": "^4.17.3",
+    "express-rate-limit": "^5.0.0",
+    "utf-8-validate": "^5.0.9",
+    "ws": "^8.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amaisano/muk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amaisano/muk/issues"
+  },
+  "homepage": "https://github.com/amaisano/muk#readme"
+}
