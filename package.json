@@ -4,25 +4,20 @@
   "description": "websocket system for troll chests",
   "main": "index.js",
   "engines": {
-    "node": "16.x",
-    "npm": "6.x"
+    "node": "12.x"
   },
   "dependencies": {
-    "bufferutil": "^4.0.6",
-    "express": "^4.17.3",
     "express-rate-limit": "^5.0.0",
-    "utf-8-validate": "^5.0.9",
-    "ws": "^8.5.0"
+    "bufferutil": "^4.0.1",
+    "express": "^4.17.1",
+    "utf-8-validate": "^5.0.2",
+    "ws": "^7.2.0"
   },
   "devDependencies": {},
   "scripts": {
     "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/amaisano/muk.git"
-  },
-  "author": "",
+  "author": "Adamo Maisano",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/amaisano/muk/issues"
