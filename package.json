@@ -4,7 +4,8 @@
   "description": "websocket system for troll chests",
   "main": "index.js",
   "engines": {
-    "node": "16.x"
+    "node": "16.x",
+    "npm": "6.x"
   },
   "dependencies": {
     "bufferutil": "^4.0.6",
