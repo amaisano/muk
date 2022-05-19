@@ -2,7 +2,7 @@
   "name": "muk_chests",
   "version": "1.0.0",
   "description": "websocket system for troll chests",
-  "main": "index.js",
+  "main": "app.js",
   "engines": {
     "node": "12.x"
   },
@@ -15,7 +15,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "author": "Adamo Maisano",
   "license": "ISC",
