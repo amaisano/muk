@@ -1,13 +1,16 @@
 name: mukchests
 services:
-  app:
-    type: nginx
-  ws:
+  node:
     type: node:16
-    command: npm install && npm start
     scanner: false
+    build:
+      - npm install
+    command: npm start
+tooling:
+  npm:
+    service: node
+  node:
+    service: node
 proxy:
-  app:
-    - mukchests.lndo.site
-  ws:
-    - muk_ws.lndo.site:3000
+  node:
+    - mukchests.lndo.site:3000
