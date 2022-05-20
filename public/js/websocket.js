@@ -9,6 +9,25 @@ let ws = new WebSocket(HOST);
 let el;
 
 ws.onmessage = (event) => {
-  el = document.getElementById('server-time');
-  el.innerHTML = 'Server time: ' + event.data;
+  console.log(event.data);
+
+  // Convert string JSON into JS Object
+  payload = JSON.parse(event.data)
+
+  switch (payload.action) {
+    case "add":
+      $('#add').click();
+      break;
+
+    case "remove":
+      $('#remove').click();
+      break;
+
+    case "clear":
+      $('#clear').click();
+      break;
+
+    default:
+      break;
+  }
 };
