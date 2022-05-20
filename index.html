@@ -7,22 +7,6 @@
     <title>Chest Troll 1.0</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      if (window.location.hostname.indexOf("lndo") > -1) {
-        var HOST = 'ws://mukchests.lndo.site';
-      }
-      else {
-        var HOST = location.origin.replace(/^http/, 'ws');
-      }
-
-      let ws = new WebSocket(HOST);
-      let el;
-
-      ws.onmessage = (event) => {
-        el = document.getElementById('server-time');
-        el.innerHTML = 'Server time: ' + event.data;
-      };
-    </script>
   </head>
   <body>
     <div id="container"></div>
@@ -34,5 +18,6 @@
       <p id="server-time">X</p>
     </div>
     <script type="text/javascript" src="js/logic.js"></script>
+    <script type="text/javascript" src="js/websocket.js"></script>
   </body>
 </html>

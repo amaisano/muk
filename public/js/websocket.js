@@ -1,5 +1,5 @@
 if (window.location.hostname.indexOf("lndo") > -1) {
-  var HOST = 'ws://muk_ws.lndo.site';
+  var HOST = 'ws://mukchests.lndo.site';
 }
 else {
   var HOST = location.origin.replace(/^http/, 'ws');
