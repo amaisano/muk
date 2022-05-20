@@ -55,19 +55,36 @@ input[type=number] {
 }
 
 .chest {
-  min-width: 10em;
-  min-height: 10em;
-  background-color: #333;
+  animation-name: wobble;
+  animation-delay: 2000ms;
+  animation-duration: 2500ms;
+  animation-iteration-count: infinite;
+  background-image: url("../images/gw2-chest.png");
+  background-repeat: no-repeat;
+  background-size: contain;
   border-radius: 25%;
   cursor: pointer;
+  min-height: 7em;
+  min-width: 7em;
 }
 
 .chest:hover {
-  background-color: #222;
+  filter: brightness(0.75) ;
 }
 
 .chest:before {
   color: #fff;
   display: inline-block;
   padding: 0.25em;
+}
+
+@keyframes wobble {
+  0% { transform: rotate(0deg); }
+  65% { transform: rotate(0deg); }
+  70% { transform: rotate(-20deg); }
+  75% { transform: rotate(20deg); }
+  80% { transform: rotate(-20deg); }
+  85% { transform: rotate(20deg); }
+  90% { transform: rotate(-10deg); }
+  95% { transform: rotate(10deg); }
 }
