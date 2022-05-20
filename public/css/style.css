@@ -53,18 +53,51 @@ input[type=number] {
   bottom: 1em;
 }
 
-.chest {
-  animation-name: wobble;
-  animation-delay: 2000ms;
-  animation-duration: 2500ms;
-  animation-iteration-count: infinite;
-  background-image: url("../images/gw2-chest.png");
-  background-repeat: no-repeat;
-  background-size: contain;
+.chest-wrapper {
   border-radius: 25%;
   cursor: pointer;
+  font-size: 12px;
+  margin-left: -0.75em;
   min-height: 7em;
   min-width: 7em;
+  position: relative;
+}
+
+.chest,
+.sparkle-cw,
+.sparkle-ccw {
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.chest {
+  animation-name: wobble;
+  animation-delay: 2s;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  background-image: url("../images/gw2-chest.png");
+  height: 80%;
+  left: 10%;
+  width: 80%;
+  top: 15%;
+  z-index: 4;
+}
+
+.sparkle-ccw {
+  animation: ccwspin 10s linear infinite;
+  background-image: url("../images/ccw-sparkle.png");
+  margin-top: -0.5em;
+  opacity: 0.75;
+  z-index: 1;
+}
+
+.sparkle-cw {
+  animation: cwspin 5s linear infinite;
+  background-image: url("../images/cw-sparkle.png");
+  z-index: 2;
 }
 
 .chest:hover {
@@ -75,6 +108,18 @@ input[type=number] {
   color: #fff;
   display: inline-block;
   padding: 0.25em;
+}
+
+@keyframes ccwspin { 
+  100% { 
+      transform:rotate(-360deg); 
+  } 
+}
+
+@keyframes cwspin { 
+  100% { 
+      transform:rotate(360deg); 
+  } 
 }
 
 @keyframes wobble {

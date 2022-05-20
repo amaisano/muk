@@ -2,7 +2,7 @@ $(document).ready(function(){
 
   var chestCount = 0;
   var container = $("#container");
-  var chest = "<div class='chest'></div>";
+  var chest = "<div class='chest-wrapper'><div class='chest'></div><div class='sparkle-cw'></div><div class='sparkle-ccw'></div></div>";
 
   // Add a new chest
   $("#add").click(function(){
