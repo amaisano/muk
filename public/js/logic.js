@@ -6,22 +6,17 @@ $(document).ready(function(){
 
   // Add a new chest
   $("#add").click(function(){
-    container.append(chest);
-    chestCount++;
+    addChests(1);
   });
 
   // Remove last chest
   $("#remove").click(function(){
-    if (chestCount > 0) {
-      container.children().last().remove();
-      chestCount--;
-    }
+    deleteChests(1);
   });
 
   // Clear all chests
   $("#clear").click(function(){
-    container.empty();
-    chestCount = 0;
+    clearAllChests();
   });
 
   // Update count when adding, removing, clearing
@@ -37,4 +32,27 @@ $(document).ready(function(){
       $("#count").val(chestCount);
     });
   });
+
+  function addChests(count) {
+    for(let i = 1; i<=count; i++){
+      container.append(chest);
+      chestCount++;
+    }
+  };
+
+  function deleteChests(count) {
+    let loopEnd = Math.min([chestCount, count]);
+    for(let i = 1; i<=loopEnd; i++){
+      // Remove oldest chest from list.
+      container.children().first().remove();
+      chestCount--;
+    }
+  };
+
+  function clearAllChests() {
+    container.empty();
+    chestCount = 0;
+  }
+
+
 });
