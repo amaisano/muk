@@ -133,16 +133,16 @@ label {
   padding: 0.25em;
 }
 
-@keyframes ccwspin { 
-  100% { 
-      transform:rotate(-360deg); 
-  } 
+@keyframes ccwspin {
+  100% {
+      transform:rotate(-360deg);
+  }
 }
 
-@keyframes cwspin { 
-  100% { 
-      transform:rotate(360deg); 
-  } 
+@keyframes cwspin {
+  100% {
+      transform:rotate(360deg);
+  }
 }
 
 @keyframes wobble {
