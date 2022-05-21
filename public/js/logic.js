@@ -20,7 +20,7 @@ $(document).ready(function(){
 
   // Remove last chest
   $("#remove").click(function(){
-    deleteChests(1);
+    removeChests(1);
   });
 
   // Clear all chests
@@ -41,7 +41,7 @@ $(document).ready(function(){
     updateCount();
   };
 
-  function deleteChests(count) {
+  function removeChests(count) {
     let loopEnd = Math.min(chestCount, count);
     for(let i = 1; i<=loopEnd; i++){
       // Remove current oldest chest from list.
