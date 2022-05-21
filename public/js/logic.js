@@ -42,8 +42,9 @@ $(document).ready(function(){
   });
 
   // Remove the chest you click on
-  $("#container").on("click", "div.chest-wrapper", function(){
-    $(this).hide("fast", done(event));
+  $("#container").on("click", "div.chest-wrapper", function(e){
+    // "on" delegated element events need a static callback function
+    $(this).hide("fast", done(e));
   });
 
   // "on" delegated element events need a static callback function
