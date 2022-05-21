@@ -27,13 +27,28 @@ const httpServer = http.createServer(app);
 const websocketServer = new ws.Server({ server: httpServer });
 
 websocketServer.on('connection', (ws) => {
+  // On connect
   console.log('Client connected');
+
+  // Forward incoming message events to index.html
+  ws.on('message', message => {
+    console.log(`Received message => ${message}`);
+    websocketServer.clients.forEach((client) => {
+      client.send(message);
+    });
+  })
+
+  // On disconnect
   ws.on('close', () => console.log('Client disconnected'));
 });
 
+// Acts as keep-alive
 setInterval(() => {
   websocketServer.clients.forEach((client) => {
-    client.send(new Date().toTimeString());
+    client.send(
+      JSON.stringify(
+        { time: new Date().toTimeString() }
+    ));
   });
 }, 1000);
 
