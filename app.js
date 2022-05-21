@@ -42,5 +42,15 @@ websocketServer.on('connection', (ws) => {
   ws.on('close', () => console.log('Client disconnected'));
 });
 
+// Acts as keep-alive
+setInterval(() => {
+  websocketServer.clients.forEach((client) => {
+    client.send(
+      JSON.stringify(
+        { time: new Date().toTimeString() }
+    ));
+  });
+}, 1000);
+
 const port = process.env.PORT || 3000;
 httpServer.listen(port, () => { console.log("Server started. Port: ", port); });
