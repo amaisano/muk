@@ -1,6 +1,6 @@
 var chestCount = refill = localStorage.getItem('count') ?? 0;
 var container = $("#container");
-var chest = "<div class='chest-wrapper'><div class='chest'></div><div class='sparkle-cw'></div><div class='sparkle-ccw'></div></div>";
+var chest = "<div class='chest-wrapper' id='[timestamp]'><div class='chest'></div><div class='sparkle-cw'></div><div class='sparkle-ccw'></div></div>";
 
 // Recall count
 $("#count").val(chestCount);
@@ -35,31 +35,39 @@ $("#container").on("click", "div.chest-wrapper", function(e){
 });
 
 function addChests(count, timer) {
+  let currentTime = Date.now();
   let timeOut = timer * 60 * 1000 // Convert input in minutes to ms.
   for(let i = 1; i<=count; i++){
-    container.append(chest);
+    let chestID = 'ch-'+currentTime+'-'+i;
+    let currentChest = chest.replace('[timestamp]', chestID);
+    container.append(currentChest);
     chestCount++;
 
     if (timer && timer != 0){
-      let lastChest = container.children().last();
-      setTimeout(function() {deleteSpecificChest(lastChest);}, timeOut);
+      window['timer-'+chestID] = setTimeout(function() {deleteSpecificChest(chestID);}, timeOut);
     }
   }
   updateCount();
 };
 
-function deleteSpecificChest(chest) {
-  // Remove specified chest from list.
-  chest.remove();
-  chestCount--;
-  updateCount();
+function deleteSpecificChest(id) {
+  let specificChest = container.find('#'+id);
+  if (specificChest.length > 0){
+    // Remove specified chest from list.
+    specificChest.remove();
+    chestCount--;
+    updateCount();
+  }
 }
 
 function removeChests(count) {
   let loopEnd = Math.min(chestCount, count);
   for(let i = 1; i<=loopEnd; i++){
     // Remove current oldest chest from list.
-    container.children().first().remove();
+    let chestDelete = container.children().first();
+    chestDelete.remove();
+    // We dont need the timeout anymore, better to clear it out.
+    clearTimeout(window['timer-'+chestDelete.id]);
     chestCount--;
   }
   updateCount();
