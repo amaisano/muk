@@ -20,6 +20,23 @@ const limiter = new RateLimit({
 app.set('trust proxy', 1)
 app.use(limiter);
 
+// Custom Middleware
+app.use((req, res, next) => {
+  let validIps = ['127.0.0.1', '::1']; // Put your IP whitelist in this array
+
+  if (validIps.includes(req.connection.remoteAddress)) {
+    // IP is ok, so go on
+    console.log("IP ok");
+    next();
+  }
+  else {
+    // Invalid ip
+    console.log("Bad IP: " + req.connection.remoteAddress);
+    const err = new Error("Bad IP: " + req.connection.remoteAddress);
+    next(err);
+  }
+});
+
 app.use(express.static(path.join(__dirname, "./public")));
 app.get("/", (req, res) => { res.sendFile(path.join(__dirname, "index.html")) });
 
