@@ -68,6 +68,24 @@ label {
   position: relative;
 }
 
+.debug .chest-wrapper::after {
+  content: attr(id);
+  font-size: 10px;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+/* Timer chests */
+.debug .chest-wrapper {
+  color: blue;
+}
+
+/* Normal chests */
+.debug .chest-wrapper[id$="-0"] {
+  color: black;
+}
+
 .chest,
 .sparkle-cw,
 .sparkle-ccw {
