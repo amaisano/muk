@@ -3,6 +3,7 @@ html, body {
   margin: 0;
   height: 100%;
 
+  font-family: sans-serif;
   font-size: 18px;
   line-height: 1;
 
@@ -23,8 +24,12 @@ body {
 
 #controls {
   position: absolute;
+  padding: 0 .5em;
   top: 1em;
   left: 1em;
+  line-height: 1.5em;
+  z-index: 100;
+  background-color: rgba(255,255,255,0.5);
 }
 
 button {
