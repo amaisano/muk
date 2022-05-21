@@ -1,8 +1,17 @@
 $(document).ready(function(){
 
-  var chestCount = 0;
+  var chestCount = refill = localStorage.getItem('count') ?? 0;
   var container = $("#container");
   var chest = "<div class='chest-wrapper'><div class='chest'></div><div class='sparkle-cw'></div><div class='sparkle-ccw'></div></div>";
+
+  // Recall count
+  $("#count").val(chestCount);
+
+  // Fill recalled chests
+  while (refill > 0) {
+    container.append(chest);
+    refill--;
+  }
 
   // Add a new chest
   $("#add").click(function(){
@@ -11,7 +20,7 @@ $(document).ready(function(){
 
   // Remove last chest
   $("#remove").click(function(){
-    deleteChests(1);
+    removeChests(1);
   });
 
   // Clear all chests
@@ -20,9 +29,8 @@ $(document).ready(function(){
   });
 
   // Remove the chest you click on
-  $("#container").on("click", "div.chest-wrapper", function(){
-    // "on" delegated element events need a static callback function
-    $(this).hide("fast", done());
+  $("#container").on("click", "div.chest-wrapper", function(e){
+    $(this).hide("fast", done(e));
   });
 
   function addChests(count, timer) {
@@ -39,7 +47,7 @@ $(document).ready(function(){
     updateCount();
   };
 
-  function deleteChests(count) {
+  function removeChests(count) {
     let loopEnd = Math.min(chestCount, count);
     for(let i = 1; i<=loopEnd; i++){
       // Remove current oldest chest from list.
@@ -66,8 +74,7 @@ $(document).ready(function(){
     // Event is actually propagated on the .chest element
     $(event.target).parents('div.chest-wrapper').remove();
     chestCount--;
-    localStorage.setItem('count', chestCount);
-    $("#count").val(chestCount);
+    updateCount();
   }
 
   function updateCount() {
