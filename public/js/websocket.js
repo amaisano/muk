@@ -12,8 +12,7 @@ ws.onmessage = (event) => {
   console.log(event.data);
 
   // Convert string JSON into JS Object
-  try {
-    payload = JSON.parse(event.data)
+  payload = JSON.parse(event.data)
 
     switch (payload.action) {
       case "add":
@@ -23,18 +22,15 @@ ws.onmessage = (event) => {
         );
         break;
 
-      case "remove":
-        deleteChests(payload.number ?? 1);
-        break;
+    case "remove":
+      removeChests(payload.number ?? 1);
+      break;
 
-      case "clear":
-        clearAllChests();
-        break;
+    case "clear":
+      clearAllChests();
+      break;
 
-      default:
-        break;
-    }
-  } catch(e) {
-    console.log('Request data is not valid JSON');
+    default:
+      break;
   }
 };
