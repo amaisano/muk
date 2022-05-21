@@ -15,17 +15,30 @@ $(document).ready(function(){
 
   // Add a new chest
   $("#add").click(function(){
-    addChests(1);
+    container.append(chest);
+    chestCount++;
+    localStorage.setItem('count', chestCount);
   });
 
   // Remove last chest
   $("#remove").click(function(){
-    removeChests(1);
+    if (chestCount > 0) {
+      container.children().last().remove();
+      chestCount--;
+      localStorage.setItem('count', chestCount);
+    }
   });
 
   // Clear all chests
   $("#clear").click(function(){
-    clearAllChests();
+    container.empty();
+    chestCount = 0;
+    localStorage.setItem('count', chestCount);
+  });
+
+  // Update count when adding, removing, clearing
+  $("#controls button").click(function() {
+    $("#count").val(chestCount);
   });
 
   // Remove the chest you click on
@@ -33,39 +46,11 @@ $(document).ready(function(){
     $(this).hide("fast", done(e));
   });
 
-  function addChests(count) {
-    for(let i = 1; i<=count; i++){
-      container.append(chest);
-      chestCount++;
-    }
-    updateCount();
-  };
-
-  function removeChests(count) {
-    let loopEnd = Math.min(chestCount, count);
-    for(let i = 1; i<=loopEnd; i++){
-      // Remove current oldest chest from list.
-      container.children().first().remove();
-      chestCount--;
-    }
-    updateCount();
-  };
-
-  function clearAllChests() {
-    container.empty();
-    chestCount = 0;
-    updateCount();
-  }
-
+  // "on" delegated element events need a static callback function
   function done(event) {
     // Event is actually propagated on the .chest element
     $(event.target).parents('div.chest-wrapper').remove();
     chestCount--;
-    updateCount();
-  }
-
-  function updateCount() {
-    // Update count storage and display
     localStorage.setItem('count', chestCount);
     $("#count").val(chestCount);
   }
