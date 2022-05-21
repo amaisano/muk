@@ -16,15 +16,15 @@ ws.onmessage = (event) => {
 
   switch (payload.action) {
     case "add":
-      $('#add').click();
+      addChests(payload.number ?? 1);
       break;
 
     case "remove":
-      $('#remove').click();
+      removeChests(payload.number ?? 1);
       break;
 
     case "clear":
-      $('#clear').click();
+      clearAllChests();
       break;
 
     default:
