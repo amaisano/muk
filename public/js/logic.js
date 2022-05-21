@@ -25,12 +25,9 @@ $(document).ready(function(){
   });
 
   // Remove the chest you click on
-  $("#container").on("click", "div", function(){
-    $(this).hide("fast", function(){
-      $(this).remove();
-      chestCount--;
-      $("#count").val(chestCount);
-    });
+  $("#container").on("click", "div.chest-wrapper", function(){
+    // "on" delegated element events need a static callback function
+    $(this).hide("fast", done());
   });
 
   function addChests(count) {
@@ -43,7 +40,7 @@ $(document).ready(function(){
   function deleteChests(count) {
     let loopEnd = Math.min([chestCount, count]);
     for(let i = 1; i<=loopEnd; i++){
-      // Remove oldest chest from list.
+      // Remove current oldest chest from list.
       container.children().first().remove();
       chestCount--;
     }
@@ -54,5 +51,12 @@ $(document).ready(function(){
     chestCount = 0;
   }
 
+  function done(event) {
+    // Event is actually propagated on the .chest element
+    $(event.target).parents('div.chest-wrapper').remove();
+    chestCount--;
+    localStorage.setItem('count', chestCount);
+    $("#count").val(chestCount);
+  }
 
 });
