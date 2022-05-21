@@ -6,9 +6,18 @@ var chest = "<div class='chest-wrapper' id='[timestamp]'><div class='chest'></di
 $("#count").val(chestCount);
 
 // Fill recalled chests
-while (refill > 0) {
-  container.append(chest);
-  refill--;
+var start = batch = 0;
+
+if (refill > 0) {
+  while (refill > 0) {
+    let chestID = `batch-${batch}_${start}-0`;
+    let currentChest = chest.replace('[timestamp]', chestID);
+    container.append(currentChest);
+    refill--;
+    start++;
+  }
+  batch++;
+  updateCount();
 }
 
 // Add a new chest
@@ -34,11 +43,17 @@ $("#container").on("click", "div.chest-wrapper", function(e){
   $(this).hide("fast", done(e));
 });
 
+function done(event) {
+  // Event is actually propagated on the .chest element
+  $(event.target).parents('div.chest-wrapper').remove();
+  chestCount--;
+  updateCount();
+}
+
 function addChests(count, timer) {
-  let currentTime = Date.now();
   let timeOut = timer * 60 * 1000 // Convert input in minutes to ms.
   for(let i = 1; i<=count; i++){
-    let chestID = 'ch-'+currentTime+'-'+i;
+    let chestID = `batch-${batch}_${i}-${timer}`;
     let currentChest = chest.replace('[timestamp]', chestID);
     container.append(currentChest);
     chestCount++;
@@ -47,6 +62,7 @@ function addChests(count, timer) {
       window['timer-'+chestID] = setTimeout(function() {deleteSpecificChest(chestID);}, timeOut);
     }
   }
+  batch++;
   updateCount();
 };
 
@@ -64,7 +80,7 @@ function removeChests(count) {
   let loopEnd = Math.min(chestCount, count);
   for(let i = 1; i<=loopEnd; i++){
     // Remove current oldest chest from list.
-    let chestDelete = container.children().first();
+    let chestDelete = container.children().last();
     chestDelete.remove();
     // We dont need the timeout anymore, better to clear it out.
     clearTimeout(window['timer-'+chestDelete.id]);
@@ -75,14 +91,7 @@ function removeChests(count) {
 
 function clearAllChests() {
   container.empty();
-  chestCount = 0;
-  updateCount();
-}
-
-function done(event) {
-  // Event is actually propagated on the .chest element
-  $(event.target).parents('div.chest-wrapper').remove();
-  chestCount--;
+  chestCount = batch = 0;
   updateCount();
 }
 
@@ -90,4 +99,5 @@ function updateCount() {
   // Update count storage and display
   localStorage.setItem('count', chestCount);
   $("#count").val(chestCount);
+  $("#batch").val(batch-1);
 }
