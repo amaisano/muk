@@ -53,8 +53,7 @@ $(document).ready(function(){
     // Event is actually propagated on the .chest element
     $(event.target).parents('div.chest-wrapper').remove();
     chestCount--;
-    localStorage.setItem('count', chestCount);
-    $("#count").val(chestCount);
+    updateCount();
   }
 
   function updateCount() {
