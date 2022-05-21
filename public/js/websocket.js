@@ -17,7 +17,10 @@ ws.onmessage = (event) => {
 
     switch (payload.action) {
       case "add":
-        addChests(payload.number ?? 1);
+        addChests(
+          payload.number ?? 1,
+          payload.timer ?? 0
+        );
         break;
 
       case "remove":

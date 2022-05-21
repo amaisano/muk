@@ -25,10 +25,16 @@ $(document).ready(function(){
     $(this).hide("fast", done());
   });
 
-  function addChests(count) {
+  function addChests(count, timer) {
+    let timeOut = timer * 60 * 1000 // Convert input in minutes to ms.
     for(let i = 1; i<=count; i++){
-      container.append(chest);
+      current = container.append(chest);
       chestCount++;
+
+      if (timer && timer !== 0){
+        let lastChest = container.children().last();
+        setTimeout(function() {deleteSpecificChest(lastChest);}, timeOut);
+      }
     }
     updateCount();
   };
@@ -42,6 +48,13 @@ $(document).ready(function(){
     }
     updateCount();
   };
+
+  function deleteSpecificChest(chest) {
+    // Remove specified chest from list.
+    chest.remove();
+    chestCount--;
+    updateCount();
+  }
 
   function clearAllChests() {
     container.empty();
