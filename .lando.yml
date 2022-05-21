@@ -2,7 +2,7 @@ name: mukchests
 services:
   node:
     type: node:16
-    scanner: false
+    port: 3000
     build:
       - npm install
     command: npm start
