@@ -13,12 +13,15 @@ while (refill > 0) {
 
 // Add a new chest
 $("#add").click(function(){
-  addChests(1);
+  let number = $('#number').val() ?? 1;
+  let timer = $('#timer').val() ?? 0;
+  addChests(number, timer);
 });
 
 // Remove last chest
 $("#remove").click(function(){
-  removeChests(1);
+  let number = $('#number').val() ?? 1;
+  removeChests(number);
 });
 
 // Clear all chests
@@ -34,10 +37,10 @@ $("#container").on("click", "div.chest-wrapper", function(e){
 function addChests(count, timer) {
   let timeOut = timer * 60 * 1000 // Convert input in minutes to ms.
   for(let i = 1; i<=count; i++){
-    current = container.append(chest);
+    container.append(chest);
     chestCount++;
 
-    if (timer && timer !== 0){
+    if (timer && timer != 0){
       let lastChest = container.children().last();
       setTimeout(function() {deleteSpecificChest(lastChest);}, timeOut);
     }
