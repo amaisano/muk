@@ -9,29 +9,26 @@ let ws = new WebSocket(HOST);
 let el;
 
 ws.onmessage = (event) => {
+  console.log(typeof event.data);
   console.log(event.data);
 
   // Convert string JSON into JS Object
-  try {
-    payload = JSON.parse(event.data)
+  payload = JSON.parse(event.data)
 
-    switch (payload.action) {
-      case "add":
-        addChests(payload.number ?? 1);
-        break;
+  switch (payload.action) {
+    case "add":
+      addChests(payload.number ?? 1);
+      break;
 
-      case "remove":
-        removeChests(payload.number ?? 1);
-        break;
+    case "remove":
+      removeChests(payload.number ?? 1);
+      break;
 
-      case "clear":
-        clearAllChests();
-        break;
+    case "clear":
+      clearAllChests();
+      break;
 
-      default:
-        break;
-    }
-  } catch(e) {
-    console.log('Request data is not valid JSON');
+    default:
+      break;
   }
 };
