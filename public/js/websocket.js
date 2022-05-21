@@ -9,7 +9,6 @@ let ws = new WebSocket(HOST);
 let el;
 
 ws.onmessage = (event) => {
-  console.log(typeof event.data);
   console.log(event.data);
 
   // Convert string JSON into JS Object
