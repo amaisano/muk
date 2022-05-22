@@ -1,6 +1,7 @@
 var chestCount = localStorage.getItem('count') ?? 0;
 var container = $("#container");
-var chestSource = $("<div class='chest-wrapper' id='[timestamp]'><div class='chest'></div><div class='sparkle-cw'></div><div class='sparkle-ccw'></div></div>");
+var chestSource = $("<div class='chest-wrapper'><div class='chest'></div><div class='sparkle-cw'></div><div class='sparkle-ccw'></div></div>");
+var batch = 0;
 
 // Fill recalled chests
 addChests(chestCount, 0, false, false);
@@ -28,34 +29,41 @@ $("#container").on("click", "div.chest-wrapper", function(e){
   $(this).hide("fast", done(e));
 });
 
-function addChests(count, timer, random = false, increment = true) {
+function addChests(count, timer = 0, random = false, increment = true) {
+  let preCount = chestCount;
   let timeOut = timer * 60 * 1000 // Convert input in minutes to ms.
   for(let i = 1; i<=count; i++){
     let chestID = `batch-${batch}_${i}-${timer}`;
-    let currentChest = chest.replace('[timestamp]', chestID);
-    clone = generateChest(random);
+    let clone = generateChest(random, chestID);
+
     container.append(clone);
+
     if (increment) {
       chestCount++;
     }
+
     if (timer && timer != 0){
       window['timer-'+chestID] = setTimeout(function() {deleteSpecificChest(chestID);}, timeOut);
     }
   }
-  batch++;
+  if (preCount > 0) {
+    batch++;
+  }
   updateCount();
 };
 
-function generateChest(random) {
-  clone = chestSource.clone();
+function generateChest(random, id) {
+  let clone = chestSource.clone();
+  clone.attr('id', id);
 
   if (random) {
-    clone.addClass('random');
+    clone.addClass('random')
 
     // Chest container is 7x the font size
-    scaleFactor = 7;
-    // For font size (in px)
-    randomBase = Math.ceil((Math.random() * 100) + 10);
+    let scaleFactor = 7;
+
+    // For font size (in px): range of 10px to 110px
+    let randomBase = Math.ceil((Math.random() * 100) + 10);
 
     clone.css("font-size", function () {
       return randomBase + "px";
@@ -102,5 +110,5 @@ function updateCount() {
   // Update count storage and display
   localStorage.setItem('count', chestCount);
   $("#count").val(chestCount);
-  $("#batch").val(batch-1);
+  $("#batch").val(batch);
 }
