@@ -1,24 +1,10 @@
-var chestCount = refill = localStorage.getItem('count') ?? 0;
+var chestCount = localStorage.getItem('count') ?? 0;
 var container = $("#container");
-var chest = "<div class='chest-wrapper' id='[timestamp]'><div class='chest'></div><div class='sparkle-cw'></div><div class='sparkle-ccw'></div></div>";
-
-// Recall count
-$("#count").val(chestCount);
+var chestSource = $("<div class='chest-wrapper'><div class='chest'></div><div class='sparkle-cw'></div><div class='sparkle-ccw'></div></div>");
+var batch = 0;
 
 // Fill recalled chests
-var start = batch = 0;
-
-if (refill > 0) {
-  while (refill > 0) {
-    let chestID = `batch-${batch}_${start}-0`;
-    let currentChest = chest.replace('[timestamp]', chestID);
-    container.append(currentChest);
-    refill--;
-    start++;
-  }
-  batch++;
-  updateCount();
-}
+addChests(chestCount, 0, false, false);
 
 // Add a new chest
 $("#add").click(function(){
@@ -43,28 +29,55 @@ $("#container").on("click", "div.chest-wrapper", function(e){
   $(this).hide("fast", done(e));
 });
 
-function done(event) {
-  // Event is actually propagated on the .chest element
-  $(event.target).parents('div.chest-wrapper').remove();
-  chestCount--;
-  updateCount();
-}
-
-function addChests(count, timer) {
+function addChests(count, timer = 0, random = false, increment = true) {
+  let preCount = chestCount;
   let timeOut = timer * 60 * 1000 // Convert input in minutes to ms.
   for(let i = 1; i<=count; i++){
     let chestID = `batch-${batch}_${i}-${timer}`;
-    let currentChest = chest.replace('[timestamp]', chestID);
-    container.append(currentChest);
-    chestCount++;
+    let clone = generateChest(random, chestID);
+
+    container.append(clone);
+
+    if (increment) {
+      chestCount++;
+    }
 
     if (timer && timer != 0){
       window['timer-'+chestID] = setTimeout(function() {deleteSpecificChest(chestID);}, timeOut);
     }
   }
-  batch++;
+  if (preCount > 0) {
+    batch++;
+  }
   updateCount();
 };
+
+function generateChest(random, id) {
+  let clone = chestSource.clone();
+  clone.attr('id', id);
+
+  let devRandom = $('#random').is(":checked");
+
+  if (random || devRandom) {
+    clone.addClass('random')
+
+    // Chest container is 7x the font size
+    let scaleFactor = 7;
+
+    // For font size (in px): range of 10px to 110px
+    let randomBase = Math.ceil((Math.random() * 100) + 10);
+
+    clone.css("font-size", function () {
+      return randomBase + "px";
+      }).css("top", function () {
+        return Math.ceil((Math.random() * (1080 - (1080/scaleFactor))) - randomBase) + "px";
+      }).css("left", function () {
+        return Math.ceil((Math.random() * (1920 - (1920/scaleFactor))) - randomBase) + "px";
+      });
+  }
+
+  return clone;
+}
 
 function deleteSpecificChest(id) {
   let specificChest = container.find('#'+id);
@@ -99,5 +112,5 @@ function updateCount() {
   // Update count storage and display
   localStorage.setItem('count', chestCount);
   $("#count").val(chestCount);
-  $("#batch").val(batch-1);
+  $("#batch").val(batch);
 }
