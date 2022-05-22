@@ -29,6 +29,13 @@ $("#container").on("click", "div.chest-wrapper", function(e){
   $(this).hide("fast", done(e));
 });
 
+function done(event) {
+  // Event is actually propagated on the .chest element
+  $(event.target).parents('div.chest-wrapper').remove();
+  chestCount--;
+  updateCount();
+}
+
 function addChests(count, timer = 0, random = false, increment = true) {
   let preCount = chestCount;
   let timeOut = timer * 60 * 1000 // Convert input in minutes to ms.
