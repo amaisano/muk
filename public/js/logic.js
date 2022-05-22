@@ -56,7 +56,9 @@ function generateChest(random, id) {
   let clone = chestSource.clone();
   clone.attr('id', id);
 
-  if (random) {
+  let devRandom = $('#random').is(":checked");
+
+  if (random || devRandom) {
     clone.addClass('random')
 
     // Chest container is 7x the font size
