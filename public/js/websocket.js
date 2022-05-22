@@ -18,9 +18,10 @@ ws.onmessage = (event) => {
       case "add":
         addChests(
           payload.number ?? 1,
-          payload.timer ?? 0
-        );
-        break;
+          payload.timer ?? 0,
+          payload.random ?? false
+      );
+      break;
 
     case "remove":
       removeChests(payload.number ?? 1);

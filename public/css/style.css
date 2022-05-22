@@ -73,6 +73,10 @@ label {
   position: relative;
 }
 
+.chest-wrapper.random {
+  position: absolute;
+}
+
 .debug .chest-wrapper::after {
   content: attr(id);
   font-size: 10px;
