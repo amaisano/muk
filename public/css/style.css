@@ -3,6 +3,7 @@ html, body {
   margin: 0;
   height: 100%;
 
+  font-family: sans-serif;
   font-size: 18px;
   line-height: 1;
 
@@ -23,8 +24,12 @@ body {
 
 #controls {
   position: absolute;
+  padding: 0 .5em;
   top: 1em;
   left: 1em;
+  line-height: 1.5em;
+  z-index: 100;
+  background-color: rgba(255,255,255,0.5);
 }
 
 button {
@@ -33,6 +38,10 @@ button {
 
 input[type=number] {
   width: 3em;
+}
+
+label {
+  font-size: 0.8rem;
 }
 
 #container {
@@ -62,6 +71,24 @@ input[type=number] {
   min-height: 7em;
   min-width: 7em;
   position: relative;
+}
+
+.debug .chest-wrapper::after {
+  content: attr(id);
+  font-size: 10px;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+/* Timer chests */
+.debug .chest-wrapper {
+  color: blue;
+}
+
+/* Normal chests */
+.debug .chest-wrapper[id$="-0"] {
+  color: black;
 }
 
 .chest,
@@ -111,16 +138,16 @@ input[type=number] {
   padding: 0.25em;
 }
 
-@keyframes ccwspin { 
-  100% { 
-      transform:rotate(-360deg); 
-  } 
+@keyframes ccwspin {
+  100% {
+      transform:rotate(-360deg);
+  }
 }
 
-@keyframes cwspin { 
-  100% { 
-      transform:rotate(360deg); 
-  } 
+@keyframes cwspin {
+  100% {
+      transform:rotate(360deg);
+  }
 }
 
 @keyframes wobble {

@@ -14,10 +14,13 @@ ws.onmessage = (event) => {
   // Convert string JSON into JS Object
   payload = JSON.parse(event.data)
 
-  switch (payload.action) {
-    case "add":
-      addChests(payload.number ?? 1);
-      break;
+    switch (payload.action) {
+      case "add":
+        addChests(
+          payload.number ?? 1,
+          payload.timer ?? 0
+        );
+        break;
 
     case "remove":
       removeChests(payload.number ?? 1);
