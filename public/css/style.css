@@ -23,13 +23,17 @@ body {
 }
 
 #controls {
-  position: absolute;
-  padding: 0 .5em;
-  top: 1em;
+  background-color: rgba(255,255,255,0.5);
+  display: none;
   left: 1em;
   line-height: 1.5em;
+  padding: 0 .5em;
+  position: absolute;
+  top: 1em;
   z-index: 100;
-  background-color: rgba(255,255,255,0.5);
+}
+.debug #controls {
+  display: block;
 }
 
 button {

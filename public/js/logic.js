@@ -64,8 +64,8 @@ function generateChest(random, id) {
     // Chest container is 7x the font size
     let scaleFactor = 7;
 
-    // For font size (in px): range of 10px to 110px
-    let randomBase = Math.ceil((Math.random() * 100) + 10);
+    // For font size (in px): range of 10px to 60px
+    let randomBase = Math.ceil((Math.random() * 50) + 10);
 
     clone.css("font-size", function () {
       return randomBase + "px";
