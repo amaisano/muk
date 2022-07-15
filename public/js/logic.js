@@ -4,7 +4,7 @@ var chestSource = $("<div class='chest-wrapper'><div class='chest'></div><div cl
 var batch = 0;
 
 // Fill recalled chests
-addChests(chestCount, 0, false, false);
+// addChests(chestCount, 0, false, false);
 
 // Add a new chest
 $("#add").click(function(){
@@ -117,7 +117,7 @@ function clearAllChests() {
 
 function updateCount() {
   // Update count storage and display
-  localStorage.setItem('count', chestCount);
+  // localStorage.setItem('count', chestCount);
   $("#count").val(chestCount);
   $("#batch").val(batch);
 }
