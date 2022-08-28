@@ -1,21 +1,42 @@
 {
-  "name": "muk_chests",
+  "name": "muk",
   "version": "1.0.0",
   "description": "websocket system for troll chests",
-  "main": "app.js",
+  "main": "src/app.js",
   "engines": {
-    "node": "12.x"
+    "node": "16.x"
+  },
+  "bin": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "build": "pkg .",
+    "postbuild": "create-nodew-exe dist/muk.exe dist/muk.exe"
+  },
+  "pkg": {
+    "scripts": "src/**/*.js",
+    "assets": [
+      "node_modules/systray2/traybin/tray_windows_release.exe",
+      "assets/**/*",
+      "src/assets/**/*",
+      "src/public/**/*"
+    ],
+    "outputPath": "dist",
+    "targets": [
+      "node16-win"
+    ]
   },
   "dependencies": {
-    "express-rate-limit": "^5.0.0",
     "bufferutil": "^4.0.1",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.0.0",
+    "portscanner": "^2.2.0",
+    "systray2": "^2.1.4",
     "utf-8-validate": "^5.0.2",
     "ws": "^7.2.0"
   },
-  "devDependencies": {},
-  "scripts": {
-    "start": "node app.js"
+  "devDependencies": {
+    "create-nodew-exe": "^1.0.10",
+    "pkg": "^5.8.0"
   },
   "author": "Adamo Maisano",
   "license": "ISC",
